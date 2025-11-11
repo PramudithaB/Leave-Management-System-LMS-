@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\UserController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,3 +25,7 @@ require __DIR__.'/auth.php';
 
 route::get('admindashboard',[AdminController::class,'admindashboard']);
 route::get('managerdashboard',[ManagerController::class,'managerdashboard'])->middleware(['auth','manager']);
+route::get('/user/createleave', [UserController::class, 'createleave'])->name('user.createleave');
+route::get('userdashboard',[UserController::class,'userdashboard'])->name('userdashboard');
+route::post('/user/storeleave', [UserController::class, 'storeleave'])->name('user.storeleave');   
+route::delete('/user/leave/delete/{id}', [UserController::class, 'deleteleave'])->name('user.leave.delete');
