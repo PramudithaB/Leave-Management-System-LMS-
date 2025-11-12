@@ -6,10 +6,21 @@ use Illuminate\Http\Request;
 use App\Models\Leave;
 
 class ManagerController extends Controller
-{
-    public function managerdashboard()
+{public function managerdashboard()
     {
- $leaves = Leave::with('user')->get();
+        // Show only pending leaves first
+        $leaves = Leave::with('user')->where('status', 'pending')->get();
 
-        return view('manager.managerdashboard', compact('leaves'));    }
+        return view('manager.managerdashboard', compact('leaves'));
+    }
+
+    public function updateLeaveStatus(Request $request, $id)
+    {
+        $leave = Leave::findOrFail($id);
+        $leave->status = $request->status;
+        $leave->remarks = $request->remarks;
+        $leave->save();
+
+        return redirect()->back()->with('success', 'Leave status updated successfully.');
+    }
 }

@@ -13,6 +13,7 @@ class Leave extends Model
         'to_date',
         'reason',
         'status',
+        'remarks'
     ];
     public function user()
 {

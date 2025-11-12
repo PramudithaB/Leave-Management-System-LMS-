@@ -99,58 +99,59 @@
             </ul>
         </nav>
     </aside>
-    <main style="flex-grow: 1; padding: 20px;"> 
-        <h2 style="color: #34495e; margin-top: 0; margin-bottom: 20px;">Leave Applications</h2>
-        <table style="
-            width: 100%; 
-            border-collapse: collapse; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-            background-color: white; 
-            border-radius: 8px; 
-            overflow: hidden; /* Important for border-radius on table */
-        ">
-            <thead style="background-color: #3498db; color: white;">
+  <table>
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Leave Type</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Remarks</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($leaves as $leave)
                 <tr>
-                    <th style="padding: 12px 15px; text-align: left;">Employee Name</th>
-                    <th style="padding: 12px 15px; text-align: left;">Leave Type</th>
-                    <th style="padding: 12px 15px; text-align: left;">From Date</th>
-                    <th style="padding: 12px 15px; text-align: left;">To Date</th>
-                    <th style="padding: 12px 15px; text-align: left;">Reason</th>
-                    <th style="padding: 12px 15px; text-align: center;">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($leaves as $leave)
-                    <tr style="border-bottom: 1px solid #ecf0f1;">
-                        <td style="padding: 10px 15px;">{{ $leave->user ? $leave->user->name : 'Unknown User' }}</td>
-                        <td style="padding: 10px 15px;">{{ ucfirst($leave->leave_type) }}</td>
-                        <td style="padding: 10px 15px;">{{ \Carbon\Carbon::parse($leave->from_date)->format('d M, Y') }}</td>
-                        <td style="padding: 10px 15px;">{{ \Carbon\Carbon::parse($leave->to_date)->format('d M, Y') }}</td>
-                        <td style="padding: 10px 15px; max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $leave->reason }}</td>
-                        <td style="padding: 10px 15px; text-align: center;">
-                            <span style="
-                                display: inline-block; 
-                                padding: 5px 10px; 
-                                border-radius: 12px; 
-                                font-size: 12px; 
-                                font-weight: bold;
-                                {{ $leave->status == 'approved' ? 'background-color: #2ecc71; color: white;' : '' }}
-                                {{ $leave->status == 'pending' ? 'background-color: #f1c40f; color: #333;' : '' }}
-                                {{ $leave->status == 'rejected' ? 'background-color: #e74c3c; color: white;' : '' }}
-                                {{ $leave->status != 'approved' && $leave->status != 'pending' && $leave->status != 'rejected' ? 'background-color: #bdc3c7; color: #333;' : '' }}
-                            ">
-                                {{ ucfirst($leave->status) }}
-                            </span>
-                        </td>
-                    </tr>
-                @endforeach
-                <tr style="border-bottom: 1px solid #ecf0f1; background-color: #f9f9f9;">
-                    <td colspan="6" style="text-align: center; padding: 15px; color: #7f8c8d;">
-                        No more leaves to display.
+                    <td>{{ $leave->user->name ?? 'Unknown' }}</td>
+                    <td>{{ ucfirst($leave->leave_type) }}</td>
+                    <td>{{ \Carbon\Carbon::parse($leave->from_date)->format('d M, Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($leave->to_date)->format('d M, Y') }}</td>
+                    <td>{{ $leave->reason }}</td>
+                    <td>
+                        @if($leave->status == 'approved')
+                            <span style="color: green; font-weight: bold;">Approved</span>
+                        @elseif($leave->status == 'rejected')
+                            <span style="color: red; font-weight: bold;">Rejected</span>
+                        @else
+                            <span style="color: orange;">Pending</span>
+                        @endif
+                    </td>
+                    <td>{{ $leave->remarks ?? '—' }}</td>
+                    <td>
+                        <form action="{{ route('manager.leave.update', $leave->id) }}" method="POST">
+                            @csrf
+                            <textarea name="remarks" rows="2" placeholder="Enter remarks..."></textarea><br><br>
+                            <button type="submit" name="status" value="approved" class="approve-btn">Approve</button>
+                            <button type="submit" name="status" value="rejected" class="reject-btn">Reject</button>
+                        </form>
                     </td>
                 </tr>
-            </tbody>
-        </table>
-    </main>
+            @endforeach
+        </tbody>
+    </table>
+
+    <!-- Toast container -->
+    <div id="toast">{{ session('success') }}</div>
+
+    <script>
+        @if(session('success'))
+            var toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        @endif
+    </script>
 </div>
 </html>

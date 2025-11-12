@@ -29,3 +29,4 @@ route::get('/user/createleave', [UserController::class, 'createleave'])->name('u
 route::get('userdashboard',[UserController::class,'userdashboard'])->name('userdashboard');
 route::post('/user/storeleave', [UserController::class, 'storeleave'])->name('user.storeleave');   
 route::delete('/user/leave/delete/{id}', [UserController::class, 'deleteleave'])->name('user.leave.delete');
+Route::post('manager/leave/update/{id}', [ManagerController::class, 'updateLeaveStatus'])->name('manager.leave.update');
