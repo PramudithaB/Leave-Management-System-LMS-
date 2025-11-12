@@ -32,3 +32,4 @@ route::delete('/user/leave/delete/{id}', [UserController::class, 'deleteleave'])
 Route::post('manager/leave/update/{id}', [ManagerController::class, 'updateLeaveStatus'])->name('manager.leave.update');
 route::get('manager/users',[ManagerController::class,'users'])->name('manager.users');
 route::get('admin/allusers',[AdminController::class,'allusers'])->name('admin.allusers');
+Route::post('admin/assign-manager', [AdminController::class, 'assignManager'])->name('admin.assign.manager');

@@ -154,4 +154,37 @@
         @endif
     </script>
 </div>
+ 
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Welcome, {{ $manager->name }}</h1>
+
+        <h2>Your Assigned Members</h2>
+
+        @if($teamMembers->isEmpty())
+            <p style="color:gray;">No members assigned to you yet.</p>
+        @else
+            <table>
+                <thead>
+                    <tr>
+                        <th>Member Name</th>
+                        <th>Email</th>
+                        <th>Joined On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($teamMembers as $member)
+                        <tr>
+                            <td>{{ $member->name }}</td>
+                            <td>{{ $member->email }}</td>
+                            <td>{{ $member->created_at->format('d M, Y') }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    </main>
+</body>
 </html>

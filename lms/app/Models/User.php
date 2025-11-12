@@ -45,4 +45,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function manager()
+{
+    return $this->belongsTo(User::class, 'manager_id');
+}
+
+public function teamMembers()
+{
+    return $this->hasMany(User::class, 'manager_id');
+}
+public function leaves()
+{
+    return $this->hasMany(Leave::class);
+}
 }

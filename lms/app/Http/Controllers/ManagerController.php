@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Leave;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ManagerController extends Controller
 {public function managerdashboard()
     {
         // Show only pending leaves first
         $leaves = Leave::with('user')->where('status', 'pending')->get();
+          $manager = Auth::user();
 
-        return view('manager.managerdashboard', compact('leaves'));
+        // Fetch all users (team members) assigned to this manager
+        $teamMembers = User::where('manager_id', $manager->id)->get();
+
+        return view('manager.managerdashboard', compact('leaves', 'teamMembers', 'manager'));
     }
 
     public function updateLeaveStatus(Request $request, $id)
