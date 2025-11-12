@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\leave;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -12,17 +13,19 @@ class UserController extends Controller
     }
     public function userdashboard()
     {
-        $leave = leave::all();
-        return view('user.userdashboard', compact('leave'));
+        $leave = Leave::where('user_id', Auth::id())->get();
+
+    return view('user.userdashboard', compact('leave'));
     }
     public function storeleave(Request $request){
-        // $leave = new leave();
-        // $leave->leave_type = $request->leave_type;
-        // $leave->from_date = $request->from_date;
-        // $leave->to_date = $request->to_date;
-        // $leave->reason = $request->reason;
-        // $leave->save();
-        $leave = Leave::create($request->all());
+        $leave = new leave();
+        $leave->user_id = Auth::id();
+        $leave->leave_type = $request->leave_type;
+        $leave->from_date = $request->from_date;
+        $leave->to_date = $request->to_date;
+        $leave->reason = $request->reason;
+        $leave->save();
+        // $leave = Leave::create($request->all());
         return "successfully submitted leave application";
     }
     public function deleteleave($id){

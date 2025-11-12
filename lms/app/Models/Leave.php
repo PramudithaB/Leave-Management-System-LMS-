@@ -8,8 +8,15 @@ class Leave extends Model
 {
     protected $fillable = [
         'leave_type',
+        'user_id',
         'from_date',
         'to_date',
         'reason',
+        'status',
     ];
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

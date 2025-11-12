@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('leave_type');          
             $table->date('from_date');             
             $table->date('to_date');               
             $table->string('reason');   
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
