@@ -23,10 +23,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-route::get('admindashboard',[AdminController::class,'admindashboard']);
-route::get('managerdashboard',[ManagerController::class,'managerdashboard'])->middleware(['auth','manager']);
+route::get('admindashboard',[AdminController::class,'admindashboard'])->name('admindashboard');
+route::get('managerdashboard',[ManagerController::class,'managerdashboard'])->name('manager.managerdashboard')->middleware(['auth','manager']);
 route::get('/user/createleave', [UserController::class, 'createleave'])->name('user.createleave');
 route::get('userdashboard',[UserController::class,'userdashboard'])->name('userdashboard');
 route::post('/user/storeleave', [UserController::class, 'storeleave'])->name('user.storeleave');   
 route::delete('/user/leave/delete/{id}', [UserController::class, 'deleteleave'])->name('user.leave.delete');
 Route::post('manager/leave/update/{id}', [ManagerController::class, 'updateLeaveStatus'])->name('manager.leave.update');
+route::get('manager/users',[ManagerController::class,'users'])->name('manager.users');
+route::get('admin/allusers',[AdminController::class,'allusers'])->name('admin.allusers');

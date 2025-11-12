@@ -70,13 +70,13 @@
                     ">🏠 Dashboard</a>
                 </li>
                 <li style="margin-bottom: 10px;">
-                    <a href="#" style="
+                    <a href="{{route('manager.users')}}" style="
                         text-decoration: none; 
                         color: #bdc3c7; 
                         display: block; 
                         padding: 10px 15px; 
                         border-radius: 4px; 
-                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">👤 Profile</a>
+                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">👤 All Users</a>
                 </li>
                 <li style="margin-bottom: 10px;">
                     <a href="#" style="

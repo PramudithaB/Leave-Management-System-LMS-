@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Leave;
+use App\Models\User;
 
 class ManagerController extends Controller
 {public function managerdashboard()
@@ -23,4 +24,10 @@ class ManagerController extends Controller
 
         return redirect()->back()->with('success', 'Leave status updated successfully.');
     }
+    public function users()
+    {
+        $users = User::all();
+        return view('manager.users', compact('users') );
+    }
+
 }

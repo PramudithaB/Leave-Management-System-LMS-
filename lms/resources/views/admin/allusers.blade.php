@@ -25,13 +25,12 @@
         <nav>
             <ul style="list-style: none; padding: 0;">
                 <li style="margin-bottom: 10px;">
-                    <a href="#" style="
+                    <a href="{{route('admindashboard')}}" style="
                         text-decoration: none; 
                         color: white; 
                         display: block; 
                         padding: 10px 15px; 
                         border-radius: 4px; 
-                        background-color: #3498db; /* Active Link */
                     ">🏠 Dashboard</a>
                 </li>
                 <li style="margin-bottom: 10px;">
@@ -41,6 +40,8 @@
                         display: block; 
                         padding: 10px 15px; 
                         border-radius: 4px; 
+                                                background-color: #3498db; /* Active Link */
+
                     " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">👤 All Users</a>
                 </li>
                 <li style="margin-bottom: 10px;">
@@ -80,7 +81,7 @@
     align-items: center;
 ">
     @auth
-        <h1 style="margin: 0; font-size: 24px; color: #333;">Welcome Back, {{ Auth::user()->name }}</h1>
+        <h1 style="margin: 0; font-size: 24px; color: #333;">All Users</h1>
     @else
         <h1 style="margin: 0; font-size: 24px; color: #333;">Welcome to the site!</h1>
     @endauth
@@ -106,4 +107,29 @@
         
 
           
-        </div>
+        </div> <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Joined On</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($users as $user)
+                <tr>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ ucfirst($user->usertype) }}</td>
+                    <td>{{ $user->created_at->format('d M, Y') }}</td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="5" style="text-align:center;">No users found.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
