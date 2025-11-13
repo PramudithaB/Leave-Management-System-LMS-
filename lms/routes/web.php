@@ -33,3 +33,5 @@ Route::post('manager/leave/update/{id}', [ManagerController::class, 'updateLeave
 route::get('manager/users',[ManagerController::class,'users'])->name('manager.users');
 route::get('admin/allusers',[AdminController::class,'allusers'])->name('admin.allusers');
 Route::post('admin/assign-manager', [AdminController::class, 'assignManager'])->name('admin.assign.manager');
+route::get('user/notifications',[UserController::class,'notifications'])->name('user.notifications');
+Route::get('/manager/team-leaves', [ManagerController::class, 'getTeamLeaves'])->name('manager.team.leaves');

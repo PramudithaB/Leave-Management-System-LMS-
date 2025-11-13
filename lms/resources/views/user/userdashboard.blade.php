@@ -38,25 +38,25 @@
                         padding: 10px 15px; 
                         border-radius: 4px; 
                         background-color: #3498db; /* Active Link */
-                    ">🏠 Dashboard</a>
+                    ">Dashboard</a>
                 </li>
                 <li style="margin-bottom: 10px;">
-                    <a href="#" style="
+                    <a href="{{route('user.notifications')}}" style="
                         text-decoration: none; 
                         color: #bdc3c7; 
                         display: block; 
                         padding: 10px 15px; 
                         border-radius: 4px; 
-                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">👤 Profile</a>
+                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">Notification</a>
                 </li>
                 <li style="margin-bottom: 10px;">
-                    <a href="#" style="
+                    <a href="{{route('profile.edit')}}" style="
                         text-decoration: none; 
                         color: #bdc3c7; 
                         display: block; 
                         padding: 10px 15px; 
                         border-radius: 4px;
-                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">⚙️ Settings</a>
+                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">Settings</a>
                 </li>
                 <li style="margin-bottom: 10px;">
                     <a href="{{route('user.createleave')}}" style="
@@ -65,7 +65,7 @@
                         display: block; 
                         padding: 10px 15px; 
                         border-radius: 4px;
-                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">✉️ Apply Leaves</a>
+                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">Apply Leaves</a>
                 </li>
             </ul>
         </nav>

@@ -14,6 +14,8 @@ class UserController extends Controller
     public function userdashboard()
     {
         $leave = Leave::where('user_id', Auth::id())->get();
+         $user = Auth::user();
+    
 
     return view('user.userdashboard', compact('leave'));
     }
@@ -32,5 +34,14 @@ class UserController extends Controller
         $leave = leave::find($id);
         $leave->delete();
         return redirect()->back()->with('success', 'Leave application deleted successfully.');
+    }
+    public function notifications()
+    {
+        $user = Auth::user();
+        $notifications = \App\Models\Notification::where('user_id', $user->id)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+
+        return view('user.notification', compact('notifications'));
     }
 }

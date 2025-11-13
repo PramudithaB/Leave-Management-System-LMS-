@@ -8,17 +8,23 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class ManagerController extends Controller
-{public function managerdashboard()
-    {
-        // Show only pending leaves first
-        $leaves = Leave::with('user')->where('status', 'pending')->get();
-          $manager = Auth::user();
+{
+    public function managerdashboard()
+{
+    $manager = Auth::user();
 
-        // Fetch all users (team members) assigned to this manager
-        $teamMembers = User::where('manager_id', $manager->id)->get();
+    // Get all team members under this manager
+    $teamMembers = User::where('manager_id', $manager->id)->get();
 
-        return view('manager.managerdashboard', compact('leaves', 'teamMembers', 'manager'));
-    }
+    // Only show pending leaves of this manager’s team
+    $leaves = Leave::with('user')
+        ->whereIn('user_id', $teamMembers->pluck('id'))
+        ->where('status', 'pending')
+        ->get();
+
+    return view('manager.managerdashboard', compact('leaves', 'teamMembers', 'manager'));
+}
+
 
     public function updateLeaveStatus(Request $request, $id)
     {
@@ -27,6 +33,14 @@ class ManagerController extends Controller
         $leave->remarks = $request->remarks;
         $leave->save();
 
+          \App\Models\Notification::create([
+        'user_id' => $leave->user_id,
+        'title' => 'Leave ' . ucfirst($request->status),
+        'message' => 'Your leave from ' . $leave->from_date . ' to ' . $leave->to_date .
+                     ' has been ' . $request->status .
+                     ' with remark: "' . $request->remarks . '"',
+    ]);
+
         return redirect()->back()->with('success', 'Leave status updated successfully.');
     }
     public function users()
@@ -34,5 +48,30 @@ class ManagerController extends Controller
         $users = User::all();
         return view('manager.users', compact('users') );
     }
+    public function getTeamLeaves()
+{
+    $manager = Auth::user();
+    $teamMembers = User::where('manager_id', $manager->id)->pluck('id');
+
+    $leaves = Leave::with('user')
+        ->whereIn('user_id', $teamMembers)
+        ->where('status', 'approved') // show only approved leaves in calendar
+        ->get();
+
+    $events = [];
+
+    foreach ($leaves as $leave) {
+        $events[] = [
+            'title' => $leave->user->name . ' (' . ucfirst($leave->leave_type) . ')',
+            'start' => $leave->from_date,
+            'end'   => \Carbon\Carbon::parse($leave->to_date)->addDay()->toDateString(), // include end date fully
+            'color' => '#28a745', // green color for approved leaves
+            'description' => $leave->remarks ?? '',
+        ];
+    }
+
+    return response()->json($events);
+}
+
 
 }
