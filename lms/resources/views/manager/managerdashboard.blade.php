@@ -235,10 +235,10 @@
     <!-- Sidebar -->
     <aside>
         <h3>Manager Dashboard</h3>
-        <a href="#" class="active">🏠 Dashboard</a>
-        <a href="{{route('manager.users')}}">👤 All Users</a>
-        <a href="#">⚙️ Settings</a>
-        <a href="">✉️ Apply Leaves</a>
+        <a href="#" class="active">Dashboard</a>
+        <a href="{{route('manager.users')}}">All Users</a>
+        <a href="{{route('profile.edit')}}">Settings</a>
+        <a href="">Apply Leaves</a>
     </aside>
 
     <!-- Main Section -->

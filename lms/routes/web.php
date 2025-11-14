@@ -35,3 +35,5 @@ route::get('admin/allusers',[AdminController::class,'allusers'])->name('admin.al
 Route::post('admin/assign-manager', [AdminController::class, 'assignManager'])->name('admin.assign.manager');
 route::get('user/notifications',[UserController::class,'notifications'])->name('user.notifications');
 Route::get('/manager/team-leaves', [ManagerController::class, 'getTeamLeaves'])->name('manager.team.leaves');
+Route::get('/admin/leave-statistics', [AdminController::class, 'leaveStatistics'])->name('admin.leave.stats');
+Route::get('/admin/leave-report', [AdminController::class, 'downloadReport'])->name('admin.leave.report');

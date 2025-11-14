@@ -53,13 +53,13 @@
                     " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">⚙️ Settings</a>
                 </li>
                 <li style="margin-bottom: 10px;">
-                    <a href="{{route('user.createleave')}}" style="
+                    <a href="{{route('admin.leave.stats')}}" style="
                         text-decoration: none; 
                         color: #bdc3c7; 
                         display: block; 
                         padding: 10px 15px; 
                         border-radius: 4px;
-                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">✉️ Apply Leaves</a>
+                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">Reports</a>
                 </li>
             </ul>
         </nav>

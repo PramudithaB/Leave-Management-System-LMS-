@@ -57,7 +57,7 @@
                         padding: 10px 15px; 
                         border-radius: 4px; 
                         
-                    ">🏠 Dashboard</a>
+                    ">Dashboard</a>
                 </li>
                 <li style="margin-bottom: 10px;">
                     <a href="{{route('manager.users')}}" style="
@@ -67,16 +67,16 @@
                         padding: 10px 15px; 
                         border-radius: 4px; 
                         background-color: #3498db; /* Active Link */
-                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">👤 All Users</a>
+                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">All Users</a>
                 </li>
                 <li style="margin-bottom: 10px;">
-                    <a href="#" style="
+                    <a href="{{route('profile.edit')}}" style="
                         text-decoration: none; 
                         color: #bdc3c7; 
                         display: block; 
                         padding: 10px 15px; 
                         border-radius: 4px;
-                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">⚙️ Settings</a>
+                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">Settings</a>
                 </li>
                 <li style="margin-bottom: 10px;">
                     <a href="" style="
@@ -85,7 +85,7 @@
                         display: block; 
                         padding: 10px 15px; 
                         border-radius: 4px;
-                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">✉️ Apply Leaves</a>
+                    " onmouseover="this.style.backgroundColor='#34495e'" onmouseout="this.style.backgroundColor='transparent'">Apply Leaves</a>
                 </li>
             </ul>
         </nav>
